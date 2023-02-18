@@ -1,0 +1,58 @@
+pipeline{
+    agent any
+    stages{
+        stage("clean workspace"){
+            steps{
+                cleanWs()
+            }
+            post{
+                success{
+                    echo "========clean workspace executed successfully========"
+                }
+                failure{
+                    echo "========clean workspace execution failed========"
+                }
+            }
+        }
+        stage("github access"){
+            steps{
+                echo "====++++executing github access++++===="
+                git credentialsId: 'github-access', url: 'https://github.com/njokuifeanyigerald/.Net-CI-CD.git'
+            }
+            post{
+
+                success{
+                    echo "====++++github access executed successfully++++===="
+                }
+                failure{
+                    echo "====++++github access execution failed++++===="
+                }
+        
+            }
+        }
+        stage("build"){
+            steps{
+                echo "====++++executing build++++===="
+                sh "dotnet build ${workspace}\\HRM.sln --configuration Release"
+    //bat 'dotnet build C:\\ProgramData\\Jenkins\\.jenkins\\workspace\\HRMPipelines\\jenkins-demo\\HRM\\HRM.sln --configuration Release'  
+            }
+            post{
+                success{
+                    echo "====++++build executed successfully++++===="
+                }
+                failure{
+                    echo "====++++build execution failed++++===="
+                }
+        
+            }
+        }
+    }
+    post{
+        success{
+            echo "========pipeline executed successfully ========"
+        }
+        failure{
+            echo "========pipeline execution failed========"
+        }
+    }
+}
