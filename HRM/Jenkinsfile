@@ -33,7 +33,7 @@ pipeline{
         stage("build"){
             steps{
                 echo "====++++executing build++++===="
-                sh "dotnet build Desktop\\projects\\devops\\CI-CD .Net jenkins\\HRM\\HRM.sln --configuration Release"
+                sh "dotnet build \\Desktop\projects\devops\CI-CD .Net jenkins\HRM\HRM.sln --configuration Release"
     //bat 'dotnet build C:\\ProgramData\\Jenkins\\.jenkins\\workspace\\HRMPipelines\\jenkins-demo\\HRM\\HRM.sln --configuration Release'  
             }
             post{
